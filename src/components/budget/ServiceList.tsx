@@ -8,12 +8,12 @@ const ServiceList = () => {
             <div className={'flex flex-col gap-4'}>
                 {SERVICES.map((service) => (
                     <Card>
-                        <div className={'flex flex-row justify-between py-5 gap-2'}>
+                        <div className={'flex flex-col md:flex-row justify-between py-4 gap-4'}>
                             <div>
                                 <h3 className={'text-green-600 text-xl font-semibold'}>{service.name}</h3>
                                 <p>{service.description}</p>
                             </div>
-                            <div className={'flex flex-row justify-between items-center gap-2'}>
+                            <div className={'flex flex-row justify-end md:justify-between items-center gap-2'}>
                                 <p className={'text-green-800 font-semibold mr-4'}>${service.price}</p>
                                 <input
                                     type="checkbox"
