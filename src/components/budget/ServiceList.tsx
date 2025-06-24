@@ -2,9 +2,10 @@ import { SERVICES } from "../../data/services.ts";
 import Card from "./Card.tsx";
 import {useBudget} from "../../hooks/useBudget.tsx";
 import type {ChangeEvent} from "react";
+import WebDetails from "./WebDetails.tsx";
 
 const ServiceList = () => {
-    const { setServiceOption } = useBudget();
+    const {services, setServiceOption } = useBudget();
 
     const handleServiceChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, checked } = e.target;
@@ -16,6 +17,7 @@ const ServiceList = () => {
             <h2 className={'text-2xl mb-4'}>Select your services!</h2>
             <div className={'flex flex-col gap-4'}>
                 {SERVICES.map((service) => (
+                    <>
                     <Card>
                         <div className={'flex flex-col md:flex-row justify-between py-4 gap-4'}>
                             <div>
@@ -33,7 +35,10 @@ const ServiceList = () => {
                                 <label htmlFor={service.code}>Add</label>
                             </div>
                         </div>
+                        {(service.code === 'web' && services.web) && <WebDetails/>}
                     </Card>
+
+                    </>
                 ))}
             </div>
         </div>
