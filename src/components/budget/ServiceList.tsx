@@ -1,7 +1,16 @@
 import { SERVICES } from "../../data/services.ts";
 import Card from "./Card.tsx";
+import {useBudget} from "../../hooks/useBudget.tsx";
+import type {ChangeEvent} from "react";
 
 const ServiceList = () => {
+    const { setServiceOption } = useBudget();
+
+    const handleServiceChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const { name, checked } = e.target;
+        setServiceOption(name as 'seo' | 'ads' | 'web', checked);
+    };
+
     return (
         <div className={'max-w-5xl mx-auto'}>
             <h2 className={'text-2xl mb-4'}>Select your services!</h2>
@@ -19,6 +28,7 @@ const ServiceList = () => {
                                     type="checkbox"
                                     id={service.code}
                                     name={service.code}
+                                    onChange={handleServiceChange}
                                 />
                                 <label htmlFor={service.code}>Add</label>
                             </div>
