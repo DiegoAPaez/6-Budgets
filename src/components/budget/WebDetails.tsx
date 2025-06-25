@@ -28,7 +28,7 @@ const WebDetails = () => {
             <div className={'flex flex-wrap items-center justify-end gap-4'}>
                 <label htmlFor="pages">Number of Pages:</label>
                 <div className={'flex items-center gap-2'}>
-                    <button className={'flex justify-center items-center bg-transparent hover:bg-green-600 text-green-600 font-semibold hover:text-white w-6 h-6 border border-green-600 hover:border-transparent rounded'} onClick={() => handleDecrement('pages')}>-</button>
+                    <button className={'flex justify-center items-center bg-transparent hover:bg-green-600 text-green-600 font-semibold hover:text-white w-6 h-6 border border-green-600 hover:border-transparent rounded hover:cursor-pointer'} onClick={() => handleDecrement('pages')}>-</button>
                     <input
                         className={'text-center w-10 appearance-none bg-white shadow-md rounded-lg'}
                         type="text"
@@ -38,14 +38,14 @@ const WebDetails = () => {
                         value={pages}
                         onChange={(e) => handleInputChange('pages', e.target.value)}
                     />
-                    <button className={'flex justify-center items-center bg-transparent hover:bg-green-600 text-green-600 font-semibold hover:text-white w-6 h-6 border border-green-600 hover:border-transparent rounded'} onClick={() => handleIncrement('pages')}>+</button>
+                    <button className={'flex justify-center items-center bg-transparent hover:bg-green-600 text-green-600 font-semibold hover:text-white w-6 h-6 border border-green-600 hover:border-transparent rounded hover:cursor-pointer'} onClick={() => handleIncrement('pages')}>+</button>
                 </div>
             </div>
 
             <div className={'flex flex-wrap items-center justify-end gap-4'}>
                 <label htmlFor="languages">Number of Languages:</label>
                 <div className="flex items-center gap-2">
-                    <button className={'flex justify-center items-center bg-transparent hover:bg-green-600 text-green-600 font-semibold hover:text-white w-6 h-6 border border-green-600 hover:border-transparent rounded'} onClick={() => handleDecrement('languages')}>-</button>
+                    <button className={'flex justify-center items-center bg-transparent hover:bg-green-600 text-green-600 font-semibold hover:text-white w-6 h-6 border border-green-600 hover:border-transparent rounded hover:cursor-pointer'} onClick={() => handleDecrement('languages')}>-</button>
                     <input
                         className={'text-center w-10 appearance-none bg-white shadow-md rounded-lg'}
                         type="text"
@@ -55,7 +55,7 @@ const WebDetails = () => {
                         value={languages}
                         onChange={(e) => handleInputChange('languages', e.target.value)}
                     />
-                    <button className={'flex justify-center items-center bg-transparent hover:bg-green-600 text-green-600 font-semibold hover:text-white w-6 h-6 border border-green-600 hover:border-transparent rounded'} onClick={() => handleIncrement('languages')}>+</button>
+                    <button className={'flex justify-center items-center bg-transparent hover:bg-green-600 text-green-600 font-semibold hover:text-white w-6 h-6 border border-green-600 hover:border-transparent rounded hover:cursor-pointer'} onClick={() => handleIncrement('languages')}>+</button>
                 </div>
             </div>
         </div>
