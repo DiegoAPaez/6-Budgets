@@ -1,6 +1,5 @@
 import { createContext } from "react";
-import type { ServiceOptions, WebsiteDetails } from "../utils/types.ts";
-
+import type {Budget, ServiceOptions, WebsiteDetails} from "../utils/types.ts";
 
 interface BudgetContextType {
     services: ServiceOptions;
@@ -10,6 +9,9 @@ interface BudgetContextType {
     updateWebDetails: (field: 'pages' | 'languages', value: number) => void;
 
     totalPrice: number;
+
+    budgets: Budget[];
+    addBudget: (name: string, client: string, phone: string) => void;
 }
 
 export const BudgetContext  = createContext<BudgetContextType | undefined>(undefined);

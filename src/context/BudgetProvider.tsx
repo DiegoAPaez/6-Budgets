@@ -1,23 +1,22 @@
 import {type ReactNode, useEffect, useState} from "react";
 import { useSearchParams } from "react-router-dom";
-import type {ServiceOptions, WebsiteDetails} from "../utils/types.ts";
+import type {Budget, ServiceOptions, WebsiteDetails} from "../utils/types.ts";
 import { BudgetContext } from "./BudgetContext.tsx";
+import {useLocalStorage} from "../hooks/useLocalStorage.tsx";
 
 export const BudgetProvider = ({children} : {children : ReactNode}) => {
     const [searchParams, setSearchParams] = useSearchParams();
-
     const [services, setServices] = useState<ServiceOptions>({
         seo: searchParams.get('seo') === 'true',
         ads: searchParams.get('ads') === 'true',
         web: searchParams.get('web') === 'true',
     });
-
     const [webDetails, setWebDetails] = useState<WebsiteDetails>({
         pages: parseInt(searchParams.get('pages') || '1', 10),
         languages: parseInt(searchParams.get('languages') || '1', 10),
     });
-
     const [totalPrice, setTotalPrice] = useState(0);
+    const [budgets, setBudgets] = useLocalStorage<Budget[]>('budgets', []);
 
     const setServiceOption = (service: 'seo' | 'ads' | 'web', checked: boolean) => {
         setServices({
@@ -31,6 +30,21 @@ export const BudgetProvider = ({children} : {children : ReactNode}) => {
             ...webDetails,
             [field]: value,
         });
+    };
+
+    const addBudget = (name: string, email: string, phone: string) => {
+        const newBudget: Budget = {
+            id: Date.now().toString(),
+            name,
+            email,
+            phone,
+            services,
+            price: totalPrice,
+            date: new Date().toISOString(),
+            ...(services.web && { webDetails }),
+        };
+
+        setBudgets([...budgets, newBudget]);
     };
 
     useEffect(() => {
@@ -61,7 +75,9 @@ export const BudgetProvider = ({children} : {children : ReactNode}) => {
         setServiceOption,
         webDetails,
         updateWebDetails,
-        totalPrice
+        totalPrice,
+        budgets,
+        addBudget
     };
 
     return (
