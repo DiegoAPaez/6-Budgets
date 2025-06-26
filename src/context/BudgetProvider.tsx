@@ -17,6 +17,8 @@ export const BudgetProvider = ({children} : {children : ReactNode}) => {
     });
     const [totalPrice, setTotalPrice] = useState(0);
     const [budgets, setBudgets] = useLocalStorage<Budget[]>('budgets', []);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [sortType, setSortType] = useState<'none' | 'alphabetical' | 'date'>('none');
 
     const setServiceOption = (service: 'seo' | 'ads' | 'web', checked: boolean) => {
         setServices({
@@ -70,6 +72,17 @@ export const BudgetProvider = ({children} : {children : ReactNode}) => {
         });
     }, [services, webDetails, setSearchParams]);
 
+    const filteredAndSortedBudgets = budgets
+        .filter(budget => budget.name.toLowerCase().includes(searchTerm.toLowerCase()))
+        .sort((a, b) => {
+            if (sortType === 'alphabetical') {
+                return a.name.localeCompare(b.name);
+            } else if (sortType === 'date') {
+                return new Date(b.date).getTime() - new Date(a.date).getTime();
+            }
+            return 0;
+        });
+
     const value = {
         services,
         setServiceOption,
@@ -77,7 +90,12 @@ export const BudgetProvider = ({children} : {children : ReactNode}) => {
         updateWebDetails,
         totalPrice,
         budgets,
-        addBudget
+        addBudget,
+        searchTerm,
+        setSearchTerm,
+        sortType,
+        setSortType,
+        filteredAndSortedBudgets
     };
 
     return (
