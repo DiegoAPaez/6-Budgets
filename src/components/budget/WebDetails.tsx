@@ -1,8 +1,11 @@
 import {useBudget} from "../../hooks/useBudget.tsx";
+import {useState} from "react";
+import HelpModal from "../ui/HelpModal.tsx";
 
 const WebDetails = () => {
     const { webDetails, updateWebDetails } = useBudget();
     const { pages, languages } = webDetails;
+    const [showHelpModal, setShowHelpModal] = useState(false);
 
     const handleIncrement = (field: 'pages' | 'languages') => {
         const currentValue = field === 'pages' ? pages : languages;
@@ -25,6 +28,15 @@ const WebDetails = () => {
 
     return (
         <div className={'flex flex-col gap-4'}>
+            <div className={'flex flex-wrap items-center justify-end'}>
+                <button
+                    className="help-button"
+                    onClick={() => setShowHelpModal(true)}
+                    aria-label="Help"
+                >
+                    Info ℹ️
+                </button>
+            </div>
             <div className={'flex flex-wrap items-center justify-end gap-4'}>
                 <label htmlFor="pages">Number of Pages:</label>
                 <div className={'flex items-center gap-2'}>
@@ -44,7 +56,7 @@ const WebDetails = () => {
 
             <div className={'flex flex-wrap items-center justify-end gap-4'}>
                 <label htmlFor="languages">Number of Languages:</label>
-                <div className="flex items-center gap-2">
+                <div className={'flex items-center gap-2'}>
                     <button className={'flex justify-center items-center bg-transparent hover:bg-green-600 text-green-600 font-semibold hover:text-white w-6 h-6 border border-green-600 hover:border-transparent rounded hover:cursor-pointer'} onClick={() => handleDecrement('languages')}>-</button>
                     <input
                         className={'text-center w-10 appearance-none bg-white shadow-md rounded-lg'}
@@ -58,6 +70,19 @@ const WebDetails = () => {
                     <button className={'flex justify-center items-center bg-transparent hover:bg-green-600 text-green-600 font-semibold hover:text-white w-6 h-6 border border-green-600 hover:border-transparent rounded hover:cursor-pointer'} onClick={() => handleIncrement('languages')}>+</button>
                 </div>
             </div>
+
+            {showHelpModal && (
+                <HelpModal
+                    onClose={() => setShowHelpModal(false)}
+                    title="Help"
+                    content={`
+                        <div class="px-4 mb-4">
+                            <h4 class="font-bold">Pricing</h4>
+                            <p>The cost is calculated as: (Pages + Languages) × €30 + Base Price €500</p>
+                        </div>
+                    `}
+                />
+            )}
         </div>
     )
 }
