@@ -2,6 +2,7 @@ import {Link} from "react-router-dom";
 import ServiceList from "../components/budget/ServiceList.tsx";
 import {useBudget} from "../hooks/useBudget.tsx";
 import BudgetForm from "../components/budget/BudgetForm.tsx";
+import BudgetList from "../components/budget/BudgetList.tsx";
 
 const CalculatorPage = () => {
     const { totalPrice } = useBudget();
@@ -19,6 +20,7 @@ const CalculatorPage = () => {
             </div>
             <BudgetForm/>
             <hr className={'border-1 border-dashed border-green-600 my-10 opacity-50 w-4/5 mx-auto'}></hr>
+            <BudgetList/>
         </div>
     );
 }
