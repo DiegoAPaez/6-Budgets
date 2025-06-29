@@ -12,6 +12,12 @@ interface BudgetContextType {
 
     budgets: Budget[];
     addBudget: (name: string, client: string, phone: string) => void;
+
+    searchTerm: string;
+    setSearchTerm: (term: string) => void;
+    sortType: 'none' | 'alphabetical' | 'date';
+    setSortType: (type: 'none' | 'alphabetical' | 'date') => void;
+    filteredAndSortedBudgets: Budget[];
 }
 
 export const BudgetContext  = createContext<BudgetContextType | undefined>(undefined);
