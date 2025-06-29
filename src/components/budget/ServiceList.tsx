@@ -3,9 +3,10 @@ import Card from "./Card.tsx";
 import {useBudget} from "../../hooks/useBudget.tsx";
 import type {ChangeEvent} from "react";
 import WebDetails from "./WebDetails.tsx";
+import type {ServiceOptions} from "../../utils/types.ts";
 
 const ServiceList = () => {
-    const {services, setServiceOption } = useBudget();
+    const {services, setServiceOption, annualDiscount, setAnnualDiscount } = useBudget();
 
     const handleServiceChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, checked } = e.target;
@@ -30,6 +31,7 @@ const ServiceList = () => {
                                     type="checkbox"
                                     id={service.code}
                                     name={service.code}
+                                    checked={services[service.code as keyof ServiceOptions] || false}
                                     onChange={handleServiceChange}
                                 />
                                 <label className={'hover:cursor-pointer'} htmlFor={service.code}>Add</label>
@@ -38,6 +40,15 @@ const ServiceList = () => {
                         {(service.code === 'web' && services.web) && <WebDetails/>}
                     </Card>
                 ))}
+                <div className={'flex flex-row justify-end items-center gap-2'}>
+                    <input
+                        type="checkbox"
+                        id="annual"
+                        checked={annualDiscount}
+                        onChange={(e) => setAnnualDiscount(e.target.checked)}
+                    />
+                    <label htmlFor="annual">Annual Payment</label>
+                </div>
             </div>
         </div>
     )

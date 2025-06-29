@@ -5,7 +5,7 @@ import BudgetForm from "../components/budget/BudgetForm.tsx";
 import BudgetList from "../components/budget/BudgetList.tsx";
 
 const CalculatorPage = () => {
-    const { totalPrice } = useBudget();
+    const { totalPrice, annualDiscount } = useBudget();
     return (
         <div className={'p-2'}>
             <header className={'w-4/5 mx-auto flex items-center justify-between mb-6 text-green-600'}>
@@ -14,8 +14,10 @@ const CalculatorPage = () => {
             </header>
             <div className={'bg-green-50 py-6 px-4 md:px-0 w-4/5 mx-auto rounded-lg shadow-md'}>
                 <ServiceList />
-                <div className="bg-green-200 rounded-lg max-w-5xl text-center mt-4 py-6 mx-auto">
+                <div className="flex flex-col justify-center items-center gap-2 bg-green-200 rounded-lg max-w-5xl text-center mt-4 py-6 mx-auto">
                     <h2 className={'text-2xl'}>Total Budget: ${totalPrice.toFixed(2)}</h2>
+                    {annualDiscount &&
+                        <p className={'bg-orange-200 text-orange-600 font-bold py-2 px-3 rounded-lg'}>20% discount applied</p>}
                 </div>
             </div>
             <BudgetForm/>
