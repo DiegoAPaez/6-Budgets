@@ -7,6 +7,7 @@ export interface Budget {
     webDetails?: WebsiteDetails;
     price: number;
     date: string;
+    annualDiscount: boolean;
 }
 
 export interface ServiceOptions {

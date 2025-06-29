@@ -18,6 +18,9 @@ interface BudgetContextType {
     sortType: 'none' | 'alphabetical' | 'date';
     setSortType: (type: 'none' | 'alphabetical' | 'date') => void;
     filteredAndSortedBudgets: Budget[];
+
+    annualDiscount: boolean;
+    setAnnualDiscount: (value: boolean) => void;
 }
 
 export const BudgetContext  = createContext<BudgetContextType | undefined>(undefined);
