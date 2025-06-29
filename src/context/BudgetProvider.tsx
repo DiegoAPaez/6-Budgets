@@ -19,6 +19,7 @@ export const BudgetProvider = ({children} : {children : ReactNode}) => {
     const [budgets, setBudgets] = useLocalStorage<Budget[]>('budgets', []);
     const [searchTerm, setSearchTerm] = useState('');
     const [sortType, setSortType] = useState<'none' | 'alphabetical' | 'date'>('none');
+    const [annualDiscount, setAnnualDiscount] = useState(searchParams.get('annual') === 'true');
 
     const setServiceOption = (service: 'seo' | 'ads' | 'web', checked: boolean) => {
         setServices({
@@ -43,6 +44,7 @@ export const BudgetProvider = ({children} : {children : ReactNode}) => {
             services,
             price: totalPrice,
             date: new Date().toISOString(),
+            annualDiscount,
             ...(services.web && { webDetails }),
         };
 
@@ -59,6 +61,10 @@ export const BudgetProvider = ({children} : {children : ReactNode}) => {
             price += (webDetails.pages + webDetails.languages) * 30;
         }
 
+        if (annualDiscount) {
+            price = price * 0.8;
+        }
+
         setTotalPrice(price);
 
         setSearchParams({
@@ -69,8 +75,9 @@ export const BudgetProvider = ({children} : {children : ReactNode}) => {
                 pages: webDetails.pages.toString(),
                 languages: webDetails.languages.toString(),
             }),
+            annual: annualDiscount.toString(),
         });
-    }, [services, webDetails, setSearchParams]);
+    }, [services, webDetails, setSearchParams, annualDiscount]);
 
     const filteredAndSortedBudgets = budgets
         .filter(budget => budget.name.toLowerCase().includes(searchTerm.toLowerCase()))
@@ -95,7 +102,9 @@ export const BudgetProvider = ({children} : {children : ReactNode}) => {
         setSearchTerm,
         sortType,
         setSortType,
-        filteredAndSortedBudgets
+        filteredAndSortedBudgets,
+        annualDiscount,
+        setAnnualDiscount
     };
 
     return (
