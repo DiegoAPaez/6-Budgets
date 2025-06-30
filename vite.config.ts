@@ -8,4 +8,15 @@ export default defineConfig({
         react(),
         tailwindcss()
     ],
+    build: {
+        outDir: "dist",
+        assetsDir: "assets",
+        sourcemap: false,
+        emptyOutDir: true,
+    },
+    publicDir: "public",
+    server: {
+        port: 5173,
+        open: true,
+    },
 })
