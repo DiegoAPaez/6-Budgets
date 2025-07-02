@@ -6,7 +6,7 @@ import WebDetails from "./WebDetails.tsx";
 import type {ServiceOptions} from "../../utils/types.ts";
 
 const ServiceList = () => {
-    const {services, setServiceOption, annualDiscount, setAnnualDiscount } = useBudget();
+    const {services, setServiceOption, annualDiscount, setAnnualDiscount, resetServices } = useBudget();
 
     const handleServiceChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, checked } = e.target;
@@ -40,6 +40,10 @@ const ServiceList = () => {
                         {(service.code === 'web' && services.web) && <WebDetails/>}
                     </Card>
                 ))}
+                <div className={'flex justify-end items-center'}>
+                    <button onClick={() => resetServices()} className="flex justify-center items-center bg-transparent hover:bg-green-600 text-green-800 font-semibold hover:text-white border border-green-800 hover:border-transparent rounded py-1 px-2 hover:cursor-pointer">Reset Services</button>
+                </div>
+
                 <div className={'flex flex-row justify-end items-center gap-2'}>
                     <input
                         type="checkbox"
