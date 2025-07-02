@@ -24,6 +24,7 @@ export const useFormValidation = () => {
     return {
         error,
         validateForm,
-        clearError
+        clearError,
+        setError
     };
 };
