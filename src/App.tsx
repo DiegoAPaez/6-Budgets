@@ -11,6 +11,7 @@ function App() {
             <Routes>
                 <Route path={'/'} element={<WelcomePage/>}/>
                 <Route path={'/calculator'} element={<CalculatorPage/>}/>
+                <Route path={'/*'} element={<WelcomePage/>}/>
             </Routes>
         </BudgetProvider>
     </BrowserRouter>
