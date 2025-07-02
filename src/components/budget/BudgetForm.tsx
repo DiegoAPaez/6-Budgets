@@ -48,7 +48,6 @@ const BudgetForm: React.FC = () => {
                 />
                 <button type="submit" className="flex justify-center items-center bg-transparent hover:bg-green-600 text-green-800 font-semibold hover:text-white border border-green-800 hover:border-transparent rounded py-1 px-2 hover:cursor-pointer">Save Quote</button>
             </div>
-
             <ErrorMessage message={error} />
         </form>
     );

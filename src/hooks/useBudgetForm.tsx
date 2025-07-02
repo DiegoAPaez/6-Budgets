@@ -3,8 +3,8 @@ import { useBudget } from './useBudget';
 import { useFormValidation } from './useFormValidation';
 
 export const useBudgetForm = () => {
-    const { addBudget } = useBudget();
-    const { error, validateForm, clearError } = useFormValidation();
+    const { addBudget, resetServices, services } = useBudget();
+    const { error, validateForm, clearError, setError } = useFormValidation();
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -26,8 +26,14 @@ export const useBudgetForm = () => {
             return;
         }
 
+        if (!services.seo && !services.ads && !services.web) {
+            setError('At least one service must be selected');
+            return;
+        }
+
         addBudget(name, email, phone);
         resetForm();
+        resetServices();
     };
 
     return {

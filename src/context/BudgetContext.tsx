@@ -21,6 +21,7 @@ interface BudgetContextType {
 
     annualDiscount: boolean;
     setAnnualDiscount: (value: boolean) => void;
+    resetServices: () => void;
 }
 
 export const BudgetContext  = createContext<BudgetContextType | undefined>(undefined);

@@ -28,6 +28,14 @@ export const BudgetProvider = ({children} : {children : ReactNode}) => {
         });
     };
 
+    const resetServices = () => {
+        setServices({
+            seo: false,
+            ads: false,
+            web: false,
+        })
+    }
+
     const updateWebDetails = (field: 'pages' | 'languages', value: number) => {
         setWebDetails({
             ...webDetails,
@@ -104,7 +112,8 @@ export const BudgetProvider = ({children} : {children : ReactNode}) => {
         setSortType,
         filteredAndSortedBudgets,
         annualDiscount,
-        setAnnualDiscount
+        setAnnualDiscount,
+        resetServices
     };
 
     return (
