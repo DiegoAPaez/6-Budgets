@@ -1,18 +1,13 @@
-import {BrowserRouter, Route, Routes} from "react-router-dom";
-import WelcomePage from "./pages/WelcomePage.tsx";
-import CalculatorPage from "./pages/CalculatorPage.tsx";
+import {BrowserRouter} from "react-router-dom";
 import {BudgetProvider} from "./context/BudgetProvider.tsx";
+import {AppRoutes} from "./routes/AppRoutes.tsx";
 
 function App() {
 
   return (
     <BrowserRouter>
         <BudgetProvider>
-            <Routes>
-                <Route path={'/'} element={<WelcomePage/>}/>
-                <Route path={'/calculator'} element={<CalculatorPage/>}/>
-                <Route path={'/*'} element={<WelcomePage/>}/>
-            </Routes>
+            <AppRoutes/>
         </BudgetProvider>
     </BrowserRouter>
   )
