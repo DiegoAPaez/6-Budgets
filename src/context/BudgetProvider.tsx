@@ -1,27 +1,34 @@
-import {type ReactNode, useEffect, useState} from "react";
+import { type ReactNode, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import type {Budget, ServiceOptions, WebsiteDetails} from "../utils/types.ts";
+import type { Budget, ServiceOptions, WebsiteDetails } from "../utils/types.ts";
 import { BudgetContext } from "./BudgetContext.tsx";
-import {useLocalStorage} from "../hooks/useLocalStorage.tsx";
+import { useLocalStorage } from "../hooks/useLocalStorage.tsx";
 
-export const BudgetProvider = ({children} : {children : ReactNode}) => {
+export const BudgetProvider = ({ children }: { children: ReactNode }) => {
     const [searchParams, setSearchParams] = useSearchParams();
     const [services, setServices] = useState<ServiceOptions>({
-        seo: searchParams.get('seo') === 'true',
-        ads: searchParams.get('ads') === 'true',
-        web: searchParams.get('web') === 'true',
+        seo: searchParams.get("seo") === "true",
+        ads: searchParams.get("ads") === "true",
+        web: searchParams.get("web") === "true",
     });
     const [webDetails, setWebDetails] = useState<WebsiteDetails>({
-        pages: parseInt(searchParams.get('pages') || '1', 10),
-        languages: parseInt(searchParams.get('languages') || '1', 10),
+        pages: parseInt(searchParams.get("pages") ?? "1", 10),
+        languages: parseInt(searchParams.get("languages") ?? "1", 10),
     });
     const [totalPrice, setTotalPrice] = useState(0);
-    const [budgets, setBudgets] = useLocalStorage<Budget[]>('budgets', []);
-    const [searchTerm, setSearchTerm] = useState('');
-    const [sortType, setSortType] = useState<'none' | 'alphabetical' | 'date'>('none');
-    const [annualDiscount, setAnnualDiscount] = useState(searchParams.get('annual') === 'true');
+    const [budgets, setBudgets] = useLocalStorage<Budget[]>("budgets", []);
+    const [searchTerm, setSearchTerm] = useState("");
+    const [sortType, setSortType] = useState<"none" | "alphabetical" | "date">(
+        "none"
+    );
+    const [annualDiscount, setAnnualDiscount] = useState(
+        searchParams.get("annual") === "true"
+    );
 
-    const setServiceOption = (service: 'seo' | 'ads' | 'web', checked: boolean) => {
+    const setServiceOption = (
+        service: "seo" | "ads" | "web",
+        checked: boolean
+    ) => {
         setServices({
             ...services,
             [service]: checked,
@@ -33,10 +40,10 @@ export const BudgetProvider = ({children} : {children : ReactNode}) => {
             seo: false,
             ads: false,
             web: false,
-        })
-    }
+        });
+    };
 
-    const updateWebDetails = (field: 'pages' | 'languages', value: number) => {
+    const updateWebDetails = (field: "pages" | "languages", value: number) => {
         setWebDetails({
             ...webDetails,
             [field]: value,
@@ -65,7 +72,7 @@ export const BudgetProvider = ({children} : {children : ReactNode}) => {
         if (services.seo) price += 300;
         if (services.ads) price += 400;
         if (services.web) {
-            price += 500;
+            price += 440;
             price += (webDetails.pages + webDetails.languages) * 30;
         }
 
@@ -88,11 +95,13 @@ export const BudgetProvider = ({children} : {children : ReactNode}) => {
     }, [services, webDetails, setSearchParams, annualDiscount]);
 
     const filteredAndSortedBudgets = budgets
-        .filter(budget => budget.name.toLowerCase().includes(searchTerm.toLowerCase()))
+        .filter((budget) =>
+            budget.name.toLowerCase().includes(searchTerm.toLowerCase())
+        )
         .sort((a, b) => {
-            if (sortType === 'alphabetical') {
+            if (sortType === "alphabetical") {
                 return a.name.localeCompare(b.name);
-            } else if (sortType === 'date') {
+            } else if (sortType === "date") {
                 return new Date(b.date).getTime() - new Date(a.date).getTime();
             }
             return 0;
@@ -113,7 +122,7 @@ export const BudgetProvider = ({children} : {children : ReactNode}) => {
         filteredAndSortedBudgets,
         annualDiscount,
         setAnnualDiscount,
-        resetServices
+        resetServices,
     };
 
     return (
@@ -121,4 +130,4 @@ export const BudgetProvider = ({children} : {children : ReactNode}) => {
             {children}
         </BudgetContext.Provider>
     );
-}
+};

@@ -2,13 +2,30 @@ interface FormFieldProps {
     label: string;
     id: string;
     type?: string;
-    inputMode?: any;
+    inputMode?:
+        | "text"
+        | "search"
+        | "email"
+        | "tel"
+        | "url"
+        | "none"
+        | "numeric"
+        | "decimal"
+        | undefined;
     value: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     placeholder: string;
 }
 
-const FormField: React.FC<FormFieldProps> = ({ label, id, type = "text", inputMode = "text", value, onChange, placeholder }) => {
+const FormField: React.FC<FormFieldProps> = ({
+    label,
+    id,
+    type = "text",
+    inputMode = "text",
+    value,
+    onChange,
+    placeholder,
+}) => {
     return (
         <div>
             <label className="font-bold mr-2" htmlFor={id}>
