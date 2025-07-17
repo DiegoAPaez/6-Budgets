@@ -1,5 +1,5 @@
-import React from 'react';
-import {useBudgetForm} from "../../hooks/useBudgetForm.tsx";
+import React from "react";
+import { useBudgetForm } from "../../hooks/useBudgetForm.tsx";
 import FormField from "../ui/FormField.tsx";
 import ErrorMessage from "../ui/ErrorMessage.tsx";
 
@@ -12,7 +12,7 @@ const BudgetForm: React.FC = () => {
         phone,
         setPhone,
         error,
-        handleSubmit
+        handleSubmit,
     } = useBudgetForm();
 
     return (
@@ -25,7 +25,10 @@ const BudgetForm: React.FC = () => {
                     label="Client Name"
                     id="client-name"
                     value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    type="text"
+                    onChange={(e) => {
+                        setName(e.target.value);
+                    }}
                     placeholder="Enter client name"
                 />
 
@@ -33,8 +36,11 @@ const BudgetForm: React.FC = () => {
                     label="E-mail"
                     id="client-email"
                     inputMode="email"
+                    type="email"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => {
+                        setEmail(e.target.value);
+                    }}
                     placeholder="Enter client e-mail"
                 />
 
@@ -42,11 +48,19 @@ const BudgetForm: React.FC = () => {
                     label="Phone number"
                     id="client-phone"
                     inputMode="tel"
+                    type="number"
                     value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
+                    onChange={(e) => {
+                        setPhone(e.target.value);
+                    }}
                     placeholder="Enter client phone number"
                 />
-                <button type="submit" className="flex justify-center items-center bg-transparent hover:bg-green-600 text-green-800 font-semibold hover:text-white border border-green-800 hover:border-transparent rounded py-1 px-2 hover:cursor-pointer">Save Quote</button>
+                <button
+                    type="submit"
+                    className="flex justify-center items-center bg-transparent hover:bg-green-600 text-green-800 font-semibold hover:text-white border border-green-800 hover:border-transparent rounded py-1 px-2 hover:cursor-pointer"
+                >
+                    Save Quote
+                </button>
             </div>
             <ErrorMessage message={error} />
         </form>
